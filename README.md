@@ -7,6 +7,10 @@ Dolphin right-click context menu option.
 ## Requirements
 
 - Python 3.6 or newer (pre-installed on Fedora/Nobara)
+- `tkinter` for the GUI — install once if missing:
+  ```bash
+  sudo dnf install python3-tkinter   # Fedora / Nobara
+  ```
 - KDE Dolphin (for the right-click service menu)
 
 ## Installation
@@ -35,6 +39,21 @@ dolphin --quit && dolphin &
 ```
 
 ## Usage
+
+### GUI (graphical interface)
+
+Run `pbopacker-gui` from a terminal, or double-click the installed launcher:
+
+```bash
+pbopacker-gui
+```
+
+A window opens with:
+- **Source folder** — browse-button to pick the folder to pack
+- **Output file** — optional; defaults to `<folder>.pbo` next to the source folder
+- **PBO prefix** — optional; e.g. `z\my_mod`
+- **Pack PBO** button — packs the folder and shows a success/error notification
+- **Log** area — shows progress and any errors
 
 ### Terminal
 
@@ -75,6 +94,7 @@ The PBO prefix determines how Arma 3 locates files inside the addon.
 ```
 PBOPACKER/
 ├── pbopacker.py       # Main packing script (Python 3)
+├── pbopacker_gui.py   # Graphical interface (tkinter)
 ├── pack_pbo.desktop   # KDE Dolphin service menu
 ├── install.sh         # Installer script
 └── README.md

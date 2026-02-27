@@ -12,11 +12,22 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# ── 1. Install the packer script ─────────────────────────────────────────────
+# ── 1. Install the packer scripts ────────────────────────────────────────────
 BIN_DIR="$HOME/.local/bin"
 mkdir -p "$BIN_DIR"
 install -m 755 "$SCRIPT_DIR/pbopacker.py" "$BIN_DIR/pbopacker"
 echo "✔  Installed pbopacker → $BIN_DIR/pbopacker"
+
+# GUI launcher (requires python3-tkinter)
+install -m 755 "$SCRIPT_DIR/pbopacker_gui.py" "$BIN_DIR/pbopacker-gui"
+echo "✔  Installed pbopacker-gui → $BIN_DIR/pbopacker-gui"
+
+# Check for tkinter (optional – GUI will warn at runtime if missing)
+if ! python3 -c "import tkinter" 2>/dev/null; then
+    echo ""
+    echo "ℹ  tkinter not found. To use the GUI run:"
+    echo "     sudo dnf install python3-tkinter   # Fedora/Nobara"
+fi
 
 # ── 2. Install the Dolphin service menu ──────────────────────────────────────
 # KDE 6 location
@@ -49,6 +60,8 @@ echo "  pbopacker <folder>                 # creates <folder>.pbo next to the fo
 echo "  pbopacker <folder> -o output.pbo   # explicit output path"
 echo "  pbopacker <folder> -p z\\my_mod    # explicit PBO prefix"
 echo "  pbopacker --help                   # full help"
+echo ""
+echo "  pbopacker-gui                      # launch the graphical interface"
 echo ""
 echo "Usage (Dolphin):"
 echo "  Right-click a folder → 'Pack as PBO'"
