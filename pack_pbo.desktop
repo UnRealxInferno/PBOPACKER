@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=inode/directory;
+Actions=PackPBO;
+X-KDE-StartupNotify=false
+
+[Desktop Action PackPBO]
+Name=Pack as PBO
+Name[en]=Pack as PBO
+Icon=package-x-generic
+Exec=bash -c 'export PATH="$HOME/.local/bin:$PATH"; out="$(dirname "%f")/$(basename "%f").pbo"; if pbopacker "%f" -o "$out"; then notify-send "PBO Packer" "Created: $(basename "$out")" --icon=package-x-generic 2>/dev/null || true; else notify-send "PBO Packer" "Failed to pack: $(basename "%f")" --icon=dialog-error 2>/dev/null || true; fi'
